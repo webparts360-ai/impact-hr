@@ -153,32 +153,35 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Page hero ── */
 .page-hero {
+  background: linear-gradient(135deg, #851313 0%, #C8200F 55%, #F86C35 100%);
+  padding: 2.5rem 2rem 2rem;
+  border-radius: var(--radius-lg);
   margin-bottom: 2.5rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--col-border);
-  background: var(--col-red); 
 }
+
 .page-hero h1 {
-  font-family: var(--ff-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 400;
-  line-height: 1.15;
-  color: #FFFFFF;
-  margin-bottom: 0.75rem;
+  color: #fff;
 }
+
 .page-hero p {
-  font-size: 1rem;
-  color: var(--col-muted);
-  max-width: 640px;
-  line-height: 1.7;
+  color: rgba(255,255,255,0.80);
 }
-.hero-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+
+.page-hero .eyebrow {
+  color: rgba(255,255,255,0.70);
 }
+
+.page-hero .time-chip {
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+}
+
+.page-hero .phase-chip {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.88);
+}
+
 .time-chip {
   display: inline-flex;
   align-items: center;
