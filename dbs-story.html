@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The DBS Story — AI Governance Reality Check</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── DBS page overrides ── */
+    .dbs-hero {
+      background: linear-gradient(135deg, #851313 0%, #C8200F 55%, #F86C35 100%);
+      color: #fff;
+      padding: 3.25rem 2rem 2.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .dbs-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .dbs-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .dbs-hero .conf-tag {
+      font-family: var(--ff-tight);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1rem;
+    }
+    .dbs-hero h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.1rem, 5.5vw, 3.25rem);
+      font-weight: 400; line-height: 1.1;
+      color: #fff; max-width: 680px;
+      margin-bottom: 0.875rem;
+    }
+    .dbs-hero .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.80);
+      max-width: 560px; line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .dbs-hero .hero-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .dbs-hero .hero-chip {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.92);
+      font-size: 12px; font-weight: 500;
+      padding: 5px 13px; border-radius: 20px;
+      font-family: var(--ff-tight);
+    }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 6px; bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, #C8200F, #F86C35, #F3CBA9);
+      border-radius: 2px;
+    }
+    .tl-item { position: relative; margin-bottom: 1.5rem; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -2rem; top: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--col-red);
+      border: 3px solid var(--col-bg);
+      box-shadow: 0 0 0 2px var(--col-red);
+    }
+    .tl-label {
+      font-family: var(--ff-tight);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--col-red);
+      margin-bottom: 3px;
+    }
+    .tl-title {
+      font-family: var(--ff-tight);
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--col-navy);
+      margin-bottom: 4px;
+    }
+    .tl-body {
+      font-size: 0.875rem;
+      color: var(--col-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      border-left: 4px solid var(--col-orange);
+      background: rgba(248,108,53,0.06);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+    }
+    .pull-quote p {
+      font-family: var(--ff-display);
+      font-size: 1.05rem; font-style: italic;
+      color: var(--col-navy); line-height: 1.6;
+      margin-bottom: 0.4rem;
+    }
+    .pull-quote cite {
+      font-size: 0.8rem; color: var(--col-muted);
+      font-style: normal; font-family: var(--ff-tight);
+    }
+
+    /* ── Programme pills ── */
+    .prog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+      margin-top: 0.875rem;
+    }
+    @media (max-width: 600px) { .prog-grid { grid-template-columns: 1fr; } }
+    .prog-card {
+      background: var(--col-bg);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius-md);
+      padding: 0.875rem 1rem;
+    }
+    .prog-card .prog-name {
+      font-family: var(--ff-tight);
+      font-size: 0.88rem; font-weight: 700;
+      color: var(--col-red);
+      margin-bottom: 3px;
+    }
+    .prog-card p {
+      font-size: 0.82rem; color: var(--col-muted); line-height: 1.55;
+    }
+
+    /* ── Results stat strip ── */
+    .results-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .result-tile {
+      background: var(--col-surface);
+      border: 1px solid var(--col-border);
+      border-top: 3px solid var(--col-red);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+    }
+    .result-tile .r-num {
+      font-family: var(--ff-display);
+      font-size: 1.75rem; color: var(--col-navy);
+      line-height: 1.1; margin-bottom: 4px;
+    }
+    .result-tile .r-label {
+      font-size: 0.78rem; color: var(--col-muted); line-height: 1.4;
+    }
+
+    /* ── Lesson card ── */
+    .lesson-card {
+      background: linear-gradient(135deg, #851313 0%, #C8200F 60%, #F86C35 100%);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+    .lesson-card h2 {
+      font-family: var(--ff-display);
+      font-size: 1.35rem; font-weight: 400;
+      color: #fff; margin-bottom: 0.5rem;
+    }
+    .lesson-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.7;
+    }
+    .lesson-rq {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-left: 3px solid #F3CBA9;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 0.875rem 1.125rem;
+      margin-top: 0.875rem;
+      font-family: var(--ff-display);
+      font-size: 1rem; font-style: italic;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.5;
+    }
+
+    /* ── Source note ── */
+    .source-note {
+      font-size: 0.75rem;
+      color: var(--col-muted);
+      line-height: 1.6;
+      padding-top: 1rem;
+      border-top: 1px solid var(--col-border);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-logos">
+    <img src="ConferenceLogo.png" alt="Impact HR Summit 2026" class="conf-logo">
+    <div class="topbar-logo-sep"></div>
+    <img src="CompanyLogo.png" alt="Impact Volution" class="co-logo">
+  </div>
+  <span class="topbar-session">AI Governance Reality Check</span>
+  <div class="topbar-nav">
+    <a href="index.html">Agenda</a>
+    <a href="page-1.html">1</a>
+    <a href="page-2.html">2</a>
+    <a href="page-3.html">3</a>
+    <a href="page-4.html">4</a>
+    <a href="page-5.html">5</a>
+    <a href="dbs-story.html" class="active">DBS</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="dbs-hero">
+  <div style="max-width:960px;margin:0 auto;position:relative;z-index:1;">
+    <div class="conf-tag">Reference — Segment 1 &nbsp;/&nbsp; Case Study</div>
+    <h1>The DBS Story</h1>
+    <p class="hero-sub">How Singapore's largest bank chose to level up its people instead of cutting them — and what HR had to do to make it real at scale.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">DBS Group Holdings</span>
+      <span class="hero-chip">Singapore</span>
+      <span class="hero-chip">2014 – 2025</span>
+      <span class="hero-chip">40,000+ employees</span>
+    </div>
+  </div>
+</div>
+
+<!-- Image placeholder -->
+<div style="max-width:960px;margin:0 auto;padding:0 2rem;">
+  <div class="img-placeholder" style="height:190px;border-radius:0 0 var(--radius-lg) var(--radius-lg);border-top:none;">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+    <span>DBS Bank image — replace with headquarters, CEO, or transformation visual (recommended: 920 × 190 px)</span>
+  </div>
+</div>
+
+<div class="page-shell">
+
+  <!-- Context -->
+  <div class="section-header-strip">
+    <h2>The challenge</h2>
+    <span class="phase-chip">Context</span>
+  </div>
+  <p class="text-muted mb-2">DBS did not arrive at this strategy in a moment of crisis. It was the product of a decade-long transformation — and a leadership team willing to name the problem before it became a headline.</p>
+
+  <div class="card">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">2014</div>
+        <div class="tl-title">Digital transformation begins — well ahead of peers</div>
+        <div class="tl-body">DBS embarks on its digital transformation journey, building technology capability in-house and establishing engineering hubs in Singapore and Hyderabad. HR is positioned as a co-architect of the cultural change — not a downstream recipient of it.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">2021 onwards</div>
+        <div class="tl-title">AI and data upskilling scaled across the bank</div>
+        <div class="tl-body">Over 9,000 employees take upskilling courses in data and AI. The bank builds 30+ comprehensive learning roadmaps covering credit assessment, data and digital skills, product sales, risk, and sustainability — many aligned with the Institute of Banking and Finance Skills Framework.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">2023</div>
+        <div class="tl-title">AI delivers SGD 370 million in economic value — more than double the prior year</div>
+        <div class="tl-body">AI and machine learning are integrated across more than 300 use cases. Productivity gains accelerate. The case for deeper AI investment — and deeper human investment alongside it — becomes undeniable at board level.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">November 2025</div>
+        <div class="tl-title">The hiring freeze decision — and the public commitment to people</div>
+        <div class="tl-body">CEO Tan Su Shan announces DBS will no longer hire for roles likely to be automated. Instead, 13,000 employees are identified for upskilling. The bank commits to reduce approximately 4,000 contract and temporary roles over three years — while simultaneously creating 1,000 new AI-focused positions and redeploying permanent staff rather than cutting them.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">July 2025</div>
+        <div class="tl-title">iCoach launches — AI-powered coaching for every employee, not just executives</div>
+        <div class="tl-body">DBS becomes the first major bank to democratise executive-level coaching at scale using generative AI, co-developed with Marshall Goldsmith, one of the world's leading executive coaches. Available 24/7 to all staff, regardless of seniority.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Leadership voice -->
+  <div class="section-header-strip">
+    <h2>The leadership voice</h2>
+    <span class="phase-chip">What they said</span>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Those who are in jobs that will be changed, we will have to take them out of their jobs and really start training them — which is what we've been doing for years."</p>
+    <cite>Tan Su Shan, CEO, DBS Group Holdings</cite>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Let them own the model. Let them own the feedback loop. Let them own the outcomes."</p>
+    <cite>Tan Su Shan, speaking at Fortune Brainstorm AI Singapore, July 2024</cite>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Transformation is about the people — and it surprises me how often people don't get that. Our HR team has been very progressive in reinforcing a culture of change throughout the bank."</p>
+    <cite>Paul Cobban, Chief Data and Transformation Officer, DBS Bank</cite>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Building career resilience has become more important than ever. We are committed to helping our people thrive through our Triple E framework — Education, Exposure and Experience."</p>
+    <cite>Lee Yan Hong, Head of Group Human Resources, DBS</cite>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- HR Strategy -->
+  <div class="section-header-strip">
+    <h2>What HR actually did</h2>
+    <span class="phase-chip">The level-up strategy</span>
+  </div>
+  <p class="text-muted mb-2">The DBS story is specifically an HR story. The transformation did not happen because technology was deployed. It happened because HR was repositioned as the engine of culture change, capability building, and people intelligence.</p>
+
+  <div class="grid-2">
+    <div class="card-sm">
+      <div class="eyebrow">Role redesign — not role elimination</div>
+      <p style="font-size:.88rem;color:var(--col-text);line-height:1.65;margin-top:.4rem;">Bank tellers were retrained to become relationship-focused bankers. Bankers were upskilled into financial advisors. Call centre staff moved into client-facing advisory roles. Every role shift was supported, not mandated — backed by a learning infrastructure that made the transition achievable.</p>
+    </div>
+    <div class="card-sm">
+      <div class="eyebrow">HR built its own AI — the Human Capital Analytics team</div>
+      <p style="font-size:.88rem;color:var(--col-text);line-height:1.65;margin-top:.4rem;">HR did not wait for technology teams to bring them tools. They built their own Human Capital Analytics (HCA) capability — covering everything from predictive attrition modelling to productivity analysis. One early breakthrough: using 600 behavioural data points to predict when a relationship manager was about to resign, enabling proactive retention before the resignation happened.</p>
+    </div>
+  </div>
+
+  <!-- Triple E -->
+  <div class="card" style="margin-top:.25rem;">
+    <div class="eyebrow">The Triple E framework — Education, Exposure, Experience</div>
+    <p style="font-size:.88rem;color:var(--col-muted);line-height:1.6;margin:.5rem 0 1rem;">DBS's people strategy is not a training programme. It is a structured ecosystem of learning pathways, cross-functional mobility, and on-the-job capability building — all operating simultaneously and at scale.</p>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <div class="prog-name">iGrow</div>
+        <p>AI/ML-powered platform that matches each employee with personalised learning pathways and internal job opportunities based on their career and training history.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-name">DBS Learning Hub</div>
+        <p>Over 10,000 curated courses available on demand. Employees choose what they need, at their own pace — covering digital skills, AI literacy, risk, leadership and more.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-name">Be My Guest programme</div>
+        <p>Job shadowing, cross-departmental workshops, and project secondments. Over 4,000 opportunities taken up in a single year — giving employees visibility into roles they may move into.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-name">DBS Mentoring programme</div>
+        <p>Structured connections between employees and senior leaders or peers at critical career transition points. Practical guidance, not just inspiration.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-name">iCoach (launched 2025)</div>
+        <p>Generative AI coaching platform, co-developed with Marshall Goldsmith. Available 24/7 to every employee — not just executives. Covers career development, leadership, work-life balance, and mental wellness.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-name">30+ learning roadmaps</div>
+        <p>Structured pathways across credit assessment, data and digital, product sales, risk and control, and sustainability — aligned with IBF's national Skills Framework for Financial Services.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Employee story -->
+  <div class="activity-card green mt-2">
+    <h3>What empowerment looks like in one person's career</h3>
+    <p>Zulkarnain Barudin has been with DBS for 18 years. He started as a Call Centre Team Manager. Through the bank's upskilling programmes and internal mobility pathways, he has made four internal moves over his tenure — progressing into a client-facing role as an Assistant Relationship Manager with DBS Treasures Private Client. His words: "The supportive learning environment encouraged me to leverage the various opportunities for development to build a fulfilling career." Eighteen years. Four moves. No redundancy. That is the point.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Results -->
+  <div class="section-header-strip">
+    <h2>The results</h2>
+    <span class="phase-chip">What it produced</span>
+  </div>
+
+  <div class="results-strip">
+    <div class="result-tile">
+      <div class="r-num">13,000</div>
+      <div class="r-label">employees identified for AI and data upskilling</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">10,000+</div>
+      <div class="r-label">already trained as of late 2025</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">SGD 780M</div>
+      <div class="r-label">economic value from AI initiatives in 2024</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">370+</div>
+      <div class="r-label">AI use cases deployed across the bank</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">1,500</div>
+      <div class="r-label">AI models running across all functions</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">13M</div>
+      <div class="r-label">customers engaged via AI-powered personalisation in 2024</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">1,000</div>
+      <div class="r-label">new AI-focused roles created</div>
+    </div>
+    <div class="result-tile">
+      <div class="r-num">4,000+</div>
+      <div class="r-label">Be My Guest opportunities taken up in one year</div>
+    </div>
+  </div>
+
+  <!-- Employer standing -->
+  <div class="grid-2">
+    <div class="card-sm">
+      <div class="eyebrow">Employer recognition</div>
+      <ul class="pill-list mt-2">
+        <li><span class="dot dot-red"></span>Ranked #1 in TIME's 500 Best Companies in Asia Pacific — 2025</li>
+        <li><span class="dot dot-red"></span>Named among Forbes World's Best Employers — 2024</li>
+        <li><span class="dot dot-red"></span>Bloomberg "Training Program of the Year" — DBS Hong Kong 2025</li>
+        <li><span class="dot dot-red"></span>"Employer of the Year" and "HR Team of the Year" — Jobsdb Hong Kong HR Awards 2024/25</li>
+        <li><span class="dot dot-red"></span>Named "World's Best Bank" by Global Finance, Euromoney, and The Banker</li>
+      </ul>
+    </div>
+    <div class="card-sm">
+      <div class="eyebrow">Customer outcome — AI doing its job</div>
+      <p style="font-size:.88rem;color:var(--col-text);line-height:1.65;margin-top:.4rem;">Customers who used DBS's AI-powered financial planning tool saved twice as much, invested five times more, and were nearly three times more insured than those who did not interact with the AI nudges. The human workforce freed up by automation was redeployed toward exactly this kind of high-trust, high-value advisory relationship. The productivity gain and the human elevation are the same story.</p>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Lesson card -->
+  <div class="lesson-card">
+    <h2>The lesson for your session</h2>
+    <p>The DBS story is more nuanced than the headline. It is not a story of a bank that avoided all pain — 4,000 contract roles are being phased out over three years. It is a story of a leadership team that made a deliberate, sequenced choice: invest in permanent people first, use AI as the tool that enables that investment, build the HR infrastructure to make it real at scale, and then let the results speak.</p>
+    <p style="margin-top:.75rem;">The hiring freeze was not the strategy. It was the signal that the strategy was serious.</p>
+    <div class="lesson-rq">"Do you think it is hard to get a job at DBS today?"</div>
+    <div class="lesson-rq" style="margin-top:.5rem;">"Do you think the people who went through that retraining can get a job anywhere else now?"</div>
+  </div>
+
+  <!-- Image placeholder close -->
+  <div class="img-placeholder" style="height:130px;margin-bottom:1.25rem;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2zM4 20a8 8 0 0 1 16 0"/></svg>
+    <span>DBS team or transformation event image — optional closing visual (recommended: 920 × 130 px)</span>
+  </div>
+
+  <p class="source-note">
+    Sources: Bloomberg (Nov 2025), Fintech Singapore (Nov 2025), Vulcan Post (Nov 2025), Parameter.io (Nov 2025), Singapore EDB, DBS Newsroom (iCoach launch, July 2025), Human Resources Online, The People Space, Tearsheet, CIO.inc, IBF Awards 2024. All figures publicly reported and verified across multiple sources. SGD figures as reported by DBS Group Holdings.
+  </p>
+
+  <div class="page-footer-nav">
+    <a href="page-1.html">← Back to Segment 1</a>
+    <a href="index.html" class="primary">Agenda →</a>
+  </div>
+
+</div>
+</body>
+</html>
