@@ -513,7 +513,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Landing hero ── */
 .landing-hero {
-  background: var(--col-navy);
+  background: var(--col-red-dark);
   color: #fff;
   padding: 3rem 2rem 2.75rem;
   position: relative;
