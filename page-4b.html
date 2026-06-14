@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segment 4b — Change Management</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cm-pillar-card {
+      background: var(--col-surface);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    .cm-pillar-header {
+      padding: 1rem 1.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cm-pillar-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--col-red);
+      color: #fff;
+      font-family: var(--ff-tight);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cm-pillar-header h3 {
+      font-family: var(--ff-tight);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--col-navy);
+      margin: 0 0 2px;
+    }
+    .cm-pillar-header p {
+      font-size: 0.82rem;
+      color: var(--col-muted);
+      margin: 0;
+    }
+    .cm-pillar-body {
+      padding: 0 1.25rem 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+    }
+    @media (max-width: 680px) {
+      .cm-pillar-body { grid-template-columns: 1fr; }
+    }
+    .cm-sub-card {
+      background: var(--col-bg);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius-md);
+      padding: 0.875rem 1rem;
+    }
+    .cm-sub-card .sub-label {
+      font-family: var(--ff-tight);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--col-red);
+      margin-bottom: 0.4rem;
+    }
+    .cm-sub-card p {
+      font-size: 0.85rem;
+      color: var(--col-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .cm-sub-card ul {
+      list-style: none;
+      margin: 0.4rem 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cm-sub-card ul li {
+      font-size: 0.83rem;
+      color: var(--col-text);
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.5;
+    }
+    .cm-sub-card ul li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--col-orange);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* Gap assessment table */
+    .gap-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .gap-table th {
+      font-family: var(--ff-tight);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--col-muted);
+      text-align: left;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--col-border);
+      background: var(--col-bg);
+    }
+    .gap-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--col-border-lt, #E6E4DF);
+      vertical-align: top;
+      line-height: 1.5;
+      color: var(--col-text);
+    }
+    .gap-table tr:last-child td { border-bottom: none; }
+    .gap-table tr:hover td { background: #FAFAF8; }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    .dot-strong  { background: #16A34A; }
+    .dot-weak    { background: var(--col-orange); }
+    .dot-missing { background: var(--col-red); }
+
+    /* Champion card */
+    .champion-example {
+      background: linear-gradient(135deg, var(--col-red-dark, #851313) 0%, var(--col-red) 100%);
+      border-radius: var(--radius-md);
+      padding: 1.125rem 1.25rem;
+      margin: 0.75rem 0;
+      color: #fff;
+    }
+    .champion-example .ce-label {
+      font-family: var(--ff-tight);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--col-peach);
+      margin-bottom: 0.4rem;
+    }
+    .champion-example p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-logos">
+    <img src="ConferenceLogo.png" alt="Impact HR Summit 2026" class="conf-logo">
+    <div class="topbar-logo-sep"></div>
+    <img src="CompanyLogo.png" alt="Impact Volution" class="co-logo">
+  </div>
+  <span class="topbar-session">AI Governance Reality Check</span>
+  <div class="topbar-nav">
+    <a href="index.html">Agenda</a>
+    <a href="page-1.html">1</a>
+    <a href="page-2.html">2</a>
+    <a href="page-3.html">3</a>
+    <a href="page-4.html">4</a>
+    <a href="page-4b.html" class="active">4b</a>
+    <a href="page-5.html">5</a>
+    <a href="dbs-story.html">DBS</a>
+  </div>
+</nav>
+
+<div class="page-shell">
+
+  <div class="page-hero">
+    <div class="eyebrow">Segment 4b &nbsp;/&nbsp; 2:00 – 2:15 (new)</div>
+    <h1>Making Governance Stick</h1>
+    <p>A framework without change management is a policy that lives in a folder. The gap between having a governance structure and people actually using it is entirely a change management problem — and HR is the function best positioned to close it.</p>
+    <div class="hero-meta">
+      <span class="time-chip">15 minutes</span>
+      <span class="phase-chip">Training</span>
+      <span class="phase-chip">Support structures</span>
+      <span class="phase-chip">Champions</span>
+      <span class="phase-chip">Gap exercise</span>
+    </div>
+  </div>
+
+  <!-- The hard question first -->
+  <div class="hq-box" style="margin-bottom:2rem;">
+    <div class="hq-label">The question that opens this segment</div>
+    If you rolled out your AI governance framework on Monday — with no training, no support channel, and no champions — what percentage of your people would know what to do? And what percentage would quietly go back to using whatever they were already using?
+  </div>
+
+  <div class="facilitator-note">
+    <strong>Facilitator note:</strong> Do not answer this question. Let it sit for five seconds. Then say: "Governance that nobody uses is not governance. It is documentation. The three levers that close the gap between policy and practice are training, support, and champions. Let us look at each one."
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Three pillars -->
+  <div class="section-header-strip">
+    <h2>The three change management levers</h2>
+    <span class="time-chip" style="background:var(--col-muted);">2:00 – 2:10</span>
+  </div>
+
+  <!-- Pillar 1: Training -->
+  <div class="cm-pillar-card">
+    <div class="cm-pillar-header">
+      <div class="cm-pillar-num">1</div>
+      <div>
+        <h3>Training — building the floor</h3>
+        <p>Not a one-off compliance module. A tiered capability programme that meets people where they are.</p>
+      </div>
+    </div>
+    <div class="cm-pillar-body">
+      <div class="cm-sub-card">
+        <div class="sub-label">Four tiers of AI literacy</div>
+        <ul>
+          <li>All staff — basic AI awareness and what the governance policy means for their role</li>
+          <li>Practitioners — tool-specific training for teams actively using approved AI</li>
+          <li>Managers — governance literacy, how to apply human-in-the-loop judgement, contextual override</li>
+          <li>Champions — advanced capability, model logic, audit trail, escalation protocols</li>
+        </ul>
+      </div>
+      <div class="cm-sub-card">
+        <div class="sub-label">The DBS model in practice</div>
+        <p>DBS did not run a compliance briefing. They built 30+ learning roadmaps, an AI-powered personalised learning platform (iGrow), a job shadowing programme (Be My Guest), and a generative AI coaching tool (iCoach) available to every employee. The lesson: training is only as effective as the infrastructure that delivers it at scale.</p>
+        <div class="hq-box mt-2" style="font-size:0.83rem;">
+          <div class="hq-label">Hard question</div>
+          Is your training programme a one-day event or an ongoing capability build?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pillar 2: Support -->
+  <div class="cm-pillar-card">
+    <div class="cm-pillar-header">
+      <div class="cm-pillar-num">2</div>
+      <div>
+        <h3>Support structures — removing the friction</h3>
+        <p>Governance fails when the path of least resistance is to do nothing, or to ask nobody. Support structures make compliance the easy option.</p>
+      </div>
+    </div>
+    <div class="cm-pillar-body">
+      <div class="cm-sub-card">
+        <div class="sub-label">Minimum viable support infrastructure</div>
+        <ul>
+          <li>A named help desk, Slack channel, or email alias where anyone can ask "is this approved?"</li>
+          <li>A 48-hour sandbox intake process for new tool requests — 5 minutes to submit, decision in 48 hours</li>
+          <li>A monthly governance Q&amp;A — open to all staff, 20 minutes, recurring</li>
+          <li>A clear escalation path for when someone is genuinely unsure and needs a human answer fast</li>
+          <li>A public vetted tools directory — updated quarterly, visible to everyone</li>
+        </ul>
+      </div>
+      <div class="cm-sub-card">
+        <div class="sub-label">Why friction is the enemy of governance</div>
+        <p>Shadow AI does not happen because people are malicious. It happens because the approved path is slower and harder than the unapproved one. Every piece of support infrastructure you build is reducing the gap between doing the right thing and doing the convenient thing. When those two options become the same option, shadow behaviour stops.</p>
+        <div class="hq-box mt-2" style="font-size:0.83rem;">
+          <div class="hq-label">Hard question</div>
+          If one of your employees wanted to know right now whether a specific AI tool was approved — what would they do? How long would it take? How confident are you they would get the right answer?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pillar 3: Champions -->
+  <div class="cm-pillar-card">
+    <div class="cm-pillar-header">
+      <div class="cm-pillar-num">3</div>
+      <div>
+        <h3>Champions — the cultural multiplier</h3>
+        <p>The most underused lever. A network of embedded practitioners who model the behaviour, reduce peer anxiety, and surface real-world friction back to HR and IT.</p>
+      </div>
+    </div>
+    <div class="cm-pillar-body">
+      <div class="cm-sub-card">
+        <div class="sub-label">What a champion is — and is not</div>
+        <ul>
+          <li><strong>Not</strong> an IT person deputised to police tool usage</li>
+          <li><strong>Not</strong> an HR person explaining the policy</li>
+          <li><strong>Yes</strong> — a frontline practitioner who has used an approved tool, seen it work, and can answer peers' questions from lived experience</li>
+          <li><strong>Yes</strong> — someone whose credibility comes from doing the job, not from knowing the policy</li>
+          <li>Ideally one per team or department, nominated by their manager, supported with advanced training</li>
+        </ul>
+      </div>
+      <div class="cm-sub-card">
+        <div class="sub-label">What champions do</div>
+        <ul>
+          <li>Answer "is this safe to use?" in real time, in the flow of work</li>
+          <li>Model approved behaviour publicly — make governance visible, not invisible</li>
+          <li>Surface real-world friction — what is not working, what people are confused about, what they are doing instead</li>
+          <li>Celebrate safe innovation within their team — giving governance a positive cultural signal</li>
+          <li>Feed quarterly insights back to HR as part of the continuous audit cycle</li>
+        </ul>
+        <div class="hq-box mt-2" style="font-size:0.83rem;">
+          <div class="hq-label">Hard question</div>
+          If you announced your AI governance framework tomorrow, who would you call first to help you land it? That person is your first champion.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Champion DBS tie-back -->
+  <div class="champion-example">
+    <div class="ce-label">DBS tie-back — champions at scale</div>
+    <p>DBS did not just train 13,000 employees. They built the iGrow platform to personalise the learning journey, the Be My Guest programme to create cross-functional exposure, and iCoach to give every employee access to coaching — not just executives. The implicit champion model at DBS was every manager who went through retraining first and could then model the behaviour for their team. That sequencing — leaders go first, then peers follow — is the cultural multiplier that made the numbers real.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Gap exercise -->
+  <div class="section-header-strip">
+    <h2>Group exercise — map your change management gaps</h2>
+    <span class="time-chip" style="background:var(--col-muted);">2:10 – 2:15</span>
+  </div>
+
+  <div class="exercise-box">
+    <div class="ex-label">Engagement exercise 4b — Gap assessment &nbsp;(5 minutes)</div>
+    <p><strong>Table groups of 3–4.</strong> For each of the three levers below, mark your organisation's current state: <strong>Strong</strong> (in place and working), <strong>Weak</strong> (exists but not effective), or <strong>Missing</strong> (does not exist).</p>
+    <p class="prompt-text">Give 3 minutes for individual reflection, then 2 minutes to compare at the table. Debrief question: "Which lever is most consistently missing — and which one would have the highest impact if you fixed it in the next 30 days?"</p>
+  </div>
+
+  <!-- Gap assessment table -->
+  <div class="card" style="padding:0; overflow:hidden; margin-top:1rem;">
+    <table class="gap-table">
+      <thead>
+        <tr>
+          <th style="width:110px;">Lever</th>
+          <th>What good looks like</th>
+          <th style="width:80px;"><span class="status-dot dot-strong"></span>Strong</th>
+          <th style="width:80px;"><span class="status-dot dot-weak"></span>Weak</th>
+          <th style="width:80px;"><span class="status-dot dot-missing"></span>Missing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600; color:var(--col-navy);">Training</td>
+          <td>Tiered literacy programme; all staff covered; managers trained separately; ongoing — not a single event</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--col-navy);">Support</td>
+          <td>Named help desk; 48-hour sandbox; monthly Q&amp;A; vetted tools directory publicly accessible</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--col-navy);">Champions</td>
+          <td>Named individual per team; advanced training completed; visible to peers; feeds back to HR quarterly</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+          <td style="text-align:center; color:var(--col-muted);">☐</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="facilitator-note mt-2">
+    <strong>Debrief note:</strong> Most tables will mark Training as Weak (something exists), Support as somewhere between Weak and Missing, and Champions as Missing entirely. That pattern is almost universal. Name it: "Champions being missing is not an accident — it requires deliberate investment and a willingness to give frontline practitioners a governance role that HR usually keeps for itself. That shift is where the cultural change actually happens."
+  </div>
+
+  <!-- Bridge -->
+  <div class="card-sm mt-3">
+    <div class="eyebrow">Bridge to Segment 5</div>
+    <p style="font-size:.9rem; color:var(--col-text); margin-top:.35rem;">You now have the governance framework, the classification system, the human elevation strategy, and the change management levers. The final segment gives you two practical tools to take back — and asks for one commitment to make before you leave this room. One of those commitment options is naming your first champion.</p>
+  </div>
+
+  <div class="page-footer-nav">
+    <a href="page-4.html">← Segment 4</a>
+    <a href="page-5.html" class="primary">Segment 5 →</a>
+  </div>
+
+</div>
+</body>
+</html>
