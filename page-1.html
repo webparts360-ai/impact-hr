@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Segment 1 — Burning Platform &amp; DBS Story</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+        /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 6px; bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, #C8200F, #F86C35, #F3CBA9);
+      border-radius: 2px;
+    }
+    .tl-item { position: relative; margin-bottom: 1.5rem; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -2rem; top: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--col-red);
+      border: 3px solid var(--col-bg);
+      box-shadow: 0 0 0 2px var(--col-red);
+    }
+    .tl-label {
+      font-family: var(--ff-tight);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--col-red);
+      margin-bottom: 3px;
+    }
+    .tl-title {
+      font-family: var(--ff-tight);
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--col-navy);
+      margin-bottom: 4px;
+    }
+    .tl-body {
+      font-size: 0.875rem;
+      color: var(--col-muted);
+      line-height: 1.65;
+    }
+  </style>
 </head>
 <body>
 
