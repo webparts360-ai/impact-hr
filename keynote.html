@@ -8,21 +8,40 @@
 </head>
   <style>
     figure {
-  max-width: 960px; 
-  margin: 0 auto 1.5rem auto; /* 'auto' on left/right centers the figure itself */
-  
-  /* Centering the image inside */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-figure img {
-  width: 100%;
-  max-width: 100%; /* Prevents the image from overflowing */
-  height: auto;    /* Maintains aspect ratio */
-  display: block;  /* Removes unwanted bottom whitespace inherent to inline images */
-}
+      max-width: 960px; 
+      margin: 0 auto 1.5rem auto; /* 'auto' on left/right centers the figure itself */
+      
+      /* Centering the image inside */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    figure img {
+      width: 100%;
+      max-width: 100%; /* Prevents the image from overflowing */
+      height: auto;    /* Maintains aspect ratio */
+      display: block;  /* Removes unwanted bottom whitespace inherent to inline images */
+    }
+    
+    .section-header-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Centers items along the main axis */
+      position: relative;     /* Allows absolute positioning if needed */
+    }
+    
+    .section-header-strip h2 {
+      margin: 0 auto;        /* Pushes everything away and forces the H2 to the exact center */
+      text-align: center;
+    }
+    
+    /* Optional: If the badge is throwing off the perfect center alignment, 
+       you can absolute position the badge to the right side */
+    .badge-red {
+      position: absolute;
+      right: 1rem; 
+    }
   </style>
 <body>
 
