@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="slides-format" content="viewport">
+  <title>AI and the Future of HR in Malaysia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #1a0508;
+      --color-bg-deep: #2a0a0f;
+      --color-surface: #3a0f16;
+      --color-text: #f8fafc;
+      --color-text-secondary: #dbe4f0;
+      --color-text-muted: #9fb0c7;
+      --color-accent-1: #b11226;
+      --color-accent-2: #e23d4f;
+      --color-accent-3: #ff9aa4;
+      --color-glass-bg: rgba(255,255,255,0.07);
+      --color-glass-border: rgba(255,255,255,0.10);
+      --color-vignette: rgba(0,0,0,0.42);
+      --font-display: 'Instrument Serif', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #1a0508; --color-text: #f8fafc; --glow-color-rgb: 6,182,212; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { background: var(--color-bg); margin: 0; }
+    body { font-family: var(--font-body); color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.95); transition: opacity 0.7s ease, transform 0.7s ease; pointer-events: none; overflow: hidden; }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+    .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1180px; padding: clamp(1.5rem, 4vw, 4rem); }
+    .nav-controls { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); padding: 10px 24px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.10); }
+    .nav-btn { width: 40px; height: 40px; border: none; background: rgba(255,255,255,0.08); color: #e23d4f; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .slide-dots { display: flex; gap: 8px; }
+    .slide-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .slide-dots .dot.active { background: #06B6D4; transform: scale(1.3); }
+    .slide-counter { font-size: 0.8rem; color: #9fb0c7; min-width: 48px; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(20px); }
+    .text-glow { text-shadow: 0 0 20px rgba(var(--glow-color-rgb), 0.5), 0 0 40px rgba(var(--glow-color-rgb), 0.2); }
+    .stat-glow { text-shadow: 0 0 28px rgba(var(--glow-color-rgb), 0.6), 0 0 52px rgba(var(--glow-color-rgb), 0.25); }
+    @keyframes float-slow { 0%{transform:translate(0,0) scale(1)} 25%{transform:translate(60px,-50px) scale(1.12)} 50%{transform:translate(-40px,40px) scale(0.9)} 75%{transform:translate(50px,20px) scale(1.08)} 100%{transform:translate(0,0) scale(1)} }
+    @keyframes float-drift { 0%{transform:translate(0,0) scale(1) rotate(0deg)} 33%{transform:translate(-50px,-60px) scale(1.15) rotate(3deg)} 66%{transform:translate(40px,30px) scale(0.88) rotate(-2deg)} 100%{transform:translate(0,0) scale(1) rotate(0deg)} }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: float-slow 10s ease-in-out infinite; }
+    .blob:nth-child(2) { animation: float-drift 14s ease-in-out infinite; }
+    .blob:nth-child(3) { animation: float-slow 18s ease-in-out infinite reverse; }
+    .slide::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 256px 256px; opacity: 0.03; mix-blend-mode: overlay; }
+    .slide::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.42) 100%); }
+    .bar-track { width: 100%; height: 20px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #b11226, #e23d4f); }
+    .quote-mark { font-size: 6rem; line-height: 0.7; opacity: 0.18; font-family: Georgia, serif; }
+    .story-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); backdrop-filter: blur(12px); border-radius: 24px; }
+    .mini-label { letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.75rem; color: #9fb0c7; }
+
+    .hero-image-placeholder { width: min(38vw, 320px); aspect-ratio: 4 / 5; margin: 0 auto 1rem; border-radius: 28px; border: 2px dashed rgba(255,255,255,0.28); background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)); display:flex; align-items:center; justify-content:center; padding: 1rem; box-shadow: 0 18px 50px rgba(0,0,0,0.25); }
+    .hero-image-placeholder span { font-size: clamp(0.95rem, 1.4vw, 1.15rem); letter-spacing: 0.14em; text-transform: uppercase; color: #ffd7dc; text-align:center; line-height:1.5; }
+    .story-image-placeholder { width: 100%; aspect-ratio: 16 / 10; border-radius: 24px; border: 2px dashed rgba(255,255,255,0.22); background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03)); display:flex; align-items:center; justify-content:center; padding: 1.25rem; min-height: 220px; }
+    .story-image-placeholder span { font-size: clamp(0.9rem, 1.2vw, 1.05rem); letter-spacing: 0.12em; text-transform: uppercase; color: #ffd7dc; text-align:center; }
+    @media (max-width: 900px) { .hero-image-placeholder { width: min(68vw, 320px); } }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; } }
+  @media (max-width: 900px) { .grid.grid-cols-2 { grid-template-columns: 1fr !important; } .grid.grid-cols-3 { grid-template-columns: 1fr !important; } .grid.grid-cols-[180px_1fr_80px] { grid-template-columns: 120px 1fr 60px !important; font-size: 0.95rem; } }
+  </style>
+</head>
+<body>
+<div class="mouse-spotlight" style="position:fixed;inset:0;z-index:99;pointer-events:none;"></div>
+<div class="deck">
+
+  <div class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:500px;height:500px;top:-100px;right:-100px;background:var(--color-accent-1);opacity:.16"></div>
+      <div class="blob" style="width:320px;height:320px;bottom:-80px;left:-60px;background:var(--color-accent-2);opacity:.12"></div>
+      <div class="blob" style="width:220px;height:220px;top:42%;left:12%;background:var(--color-accent-3);opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <div class="hero-image-placeholder reveal"><span>Cover image placeholder</span></div>
+      <h1 class="font-display text-[clamp(2.6rem,6vw,5.2rem)] font-black bg-linear-to-br from-accent-1 via-accent-2 to-accent-1 bg-clip-text text-transparent tracking-tight mb-4 reveal">AI, Work and the Future of HR in Malaysia</h1>
+      <p class="text-[clamp(0.95rem,1.6vw,1.3rem)] font-light text-text-muted tracking-[6px] uppercase reveal">A 30-minute keynote in three stories</p>
+    </div>
+  </div>
+
+  <div class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh"><div class="blob" style="width:350px;height:350px;top:-80px;right:-80px;background:var(--color-accent-1);opacity:.08"></div><div class="blob" style="width:250px;height:250px;bottom:-60px;left:-40px;background:var(--color-accent-2);opacity:.06"></div></div>
+    <div class="content">
+      <p class="mini-label reveal">Opening frame</p>
+      <h2 class="font-display text-[clamp(2.1rem,4.6vw,3.2rem)] font-bold mb-6 reveal">This keynote is about one question</h2>
+      <div class="story-card p-10 reveal">
+        <p class="text-3xl leading-tight text-text-secondary">When AI changes how work is done, who wins?</p>
+        <div class="grid grid-cols-3 gap-6 mt-8">
+          <div class="story-card p-6 reveal"><div class="mini-label mb-3">The individual</div><div class="text-xl font-semibold mb-2">Will my job still matter?</div><p class="text-text-secondary text-base">AI saves time, but it also changes what makes a person valuable.</p></div>
+          <div class="story-card p-6 reveal"><div class="mini-label mb-3">The company</div><div class="text-xl font-semibold mb-2">Will productivity really improve?</div><p class="text-text-secondary text-base">Tools alone do not create value. Work must be redesigned.</p></div>
+          <div class="story-card p-6 reveal"><div class="mini-label mb-3">HR</div><div class="text-xl font-semibold mb-2">Will HR lead or react?</div><p class="text-text-secondary text-base">The function closest to people now shapes the future of work.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh"><div class="blob" style="width:420px;height:420px;top:-90px;left:-90px;background:var(--color-accent-1);opacity:.11"></div><div class="blob" style="width:280px;height:280px;bottom:-70px;right:-40px;background:var(--color-accent-2);opacity:.08"></div></div>
+    <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <p class="mini-label reveal">Story 1</p>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold reveal">Meet Aina</h2>
+      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span>Individual story image placeholder</span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">She is capable, diligent and experienced. But she wakes up one morning and realises the market no longer pays only for effort. It pays for judgment, speed and AI fluency.</p></div>
+    </div>
+  </div>
+
+  <div class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh"><div class="blob" style="width:360px;height:360px;top:-80px;right:-60px;background:var(--color-accent-3);opacity:.09"></div><div class="blob" style="width:260px;height:260px;bottom:-50px;left:-50px;background:var(--color-accent-2);opacity:.07"></div></div>
+    <div class="content">
+      <div class="grid grid-cols-2 gap-8 items-center">
+        <div>
+          <p class="mini-label reveal">The individual story</p>
+          <h2 class="font-display text-[clamp(2rem,4.2vw,3rem)] font-bold mb-5 reveal">Aina discovers the paradox</h2>
+          <div class="story-card p-7 reveal">
+            <div class="quote-mark">“</div>
+            <p class="text-xl leading-relaxed text-text-secondary -mt-4">AI is helping people move faster, but it is also raising the bar. The person who only does tasks may struggle. The person who can direct, review and improve AI output becomes more valuable.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+          <div class="story-card p-6 reveal"><div class="text-5xl font-extrabold stat-glow" data-count="93">93</div><div class="mt-2 text-lg font-semibold">% using GenAI at work</div><p class="text-text-secondary text-sm mt-2">Malaysian employees are already using generative AI widely.</p></div>
+          <div class="story-card p-6 reveal"><div class="text-5xl font-extrabold stat-glow" data-count="81">81</div><div class="mt-2 text-lg font-semibold">% save significant time</div><p class="text-text-secondary text-sm mt-2">AI is already creating measurable efficiency.</p></div>
+          <div class="story-card p-6 reveal"><div class="text-5xl font-extrabold stat-glow" data-count="68">68</div><div class="mt-2 text-lg font-semibold">% say workload increased</div><p class="text-text-secondary text-sm mt-2">Time saved does not automatically mean pressure reduced.</p></div>
+          <div class="story-card p-6 reveal"><div class="text-5xl font-extrabold stat-glow" data-count="12">12</div><div class="mt-2 text-lg font-semibold">% get enough AI training</div><p class="text-text-secondary text-sm mt-2">Adoption is racing ahead of capability building.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh"><div class="blob" style="width:340px;height:340px;top:-70px;right:-70px;background:var(--color-accent-1);opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:var(--color-accent-2);opacity:.07"></div></div>
+    <div class="content">
+      <p class="mini-label reveal">What individuals need to understand</p>
+      <h2 class="font-display text-[clamp(2rem,4.3vw,3rem)] font-bold mb-8 reveal">Aina's real lesson: jobs are being reshaped</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="story-card p-7 reveal"><div class="text-2xl mb-3">1</div><h3 class="text-xl font-semibold mb-3">AI changes the skill mix</h3><p class="text-text-secondary">BCG found 72% of workers say AI has already changed the skills their roles require.</p></div>
+        <div class="story-card p-7 reveal"><div class="text-2xl mb-3">2</div><h3 class="text-xl font-semibold mb-3">Judgment rises in value</h3><p class="text-text-secondary">47% report spending more time managing AI than doing the work itself.</p></div>
+        <div class="story-card p-7 reveal"><div class="text-2xl mb-3">3</div><h3 class="text-xl font-semibold mb-3">Wellbeing becomes strategic</h3><p class="text-text-secondary">67% of regular AI users say job satisfaction improved, yet 41% report higher cognitive load.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh"><div class="blob" style="width:430px;height:430px;top:-120px;right:-80px;background:var(--color-accent-2);opacity:.10"></div><div class="blob" style="width:250px;height:250px;bottom:-60px;left:-30px;background:var(--color-accent-1);opacity:.08"></div></div>
+    <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <p class="mini-label reveal">Story 2</p>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold reveal">Now meet the company</h2>
+      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span>Company story image placeholder</span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">The CEO says, “We have bought the AI tools.” But the teams are still overloaded, managers are confused, and the hoped-for gains remain trapped inside the workflow.</p></div>
+    </div>
+  </div>
+
+  <div class="slide slide-7" data-slide="7">
+    <div class="gradient-mesh"><div class="blob" style="width:360px;height:360px;top:-90px;left:-90px;background:var(--color-accent-1);opacity:.09"></div><div class="blob" style="width:260px;height:260px;bottom:-50px;right:-40px;background:var(--color-accent-3);opacity:.07"></div></div>
+    <div class="content">
+      <p class="mini-label reveal">The company story</p>
+      <h2 class="font-display text-[clamp(2rem,4.2vw,3rem)] font-bold mb-8 reveal">The productivity story in Malaysia</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div class="story-card p-8 reveal">
+          <div class="text-6xl font-black stat-glow mb-3" data-count="620000">620,000</div>
+          <div class="text-xl font-semibold mb-2">jobs significantly affected</div>
+          <p class="text-text-secondary">TalentCorp estimates around 18% of formal sector roles across 10 sectors could be significantly affected within three to five years.</p>
+        </div>
+        <div class="story-card p-8 reveal">
+          <div class="text-6xl font-black stat-glow mb-3" data-count="60">60</div>
+          <div class="text-xl font-semibold mb-2">emerging roles identified</div>
+          <p class="text-text-secondary">43 of them, or 72%, are tied to AI and digital capabilities. Disruption and opportunity are happening together.</p>
+        </div>
+      </div>
+      <div class="mt-8 story-card p-8 reveal">
+        <div class="grid grid-cols-[180px_1fr_80px] gap-4 items-center mb-4"><div class="font-semibold">Wholesale & retail</div><div class="bar-track"><div class="bar-fill" data-width="100"></div></div><div class="text-right">245k</div></div>
+        <div class="grid grid-cols-[180px_1fr_80px] gap-4 items-center mb-4"><div class="font-semibold">Food manufacturing</div><div class="bar-track"><div class="bar-fill" data-width="83"></div></div><div class="text-right">203k</div></div>
+        <div class="grid grid-cols-[180px_1fr_80px] gap-4 items-center mb-4"><div class="font-semibold">GBS</div><div class="bar-track"><div class="bar-fill" data-width="36"></div></div><div class="text-right">89k</div></div>
+        <div class="grid grid-cols-[180px_1fr_80px] gap-4 items-center"><div class="font-semibold">ICT</div><div class="bar-track"><div class="bar-fill" data-width="12"></div></div><div class="text-right">30k</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh"><div class="blob" style="width:330px;height:330px;top:-60px;right:-60px;background:var(--color-accent-2);opacity:.08"></div><div class="blob" style="width:250px;height:250px;bottom:-40px;left:-40px;background:var(--color-accent-1);opacity:.06"></div></div>
+    <div class="content">
+      <p class="mini-label reveal">What companies need to understand</p>
+      <h2 class="font-display text-[clamp(2rem,4.3vw,3rem)] font-bold mb-8 reveal">Tools are not transformation</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="story-card p-7 reveal"><h3 class="text-xl font-semibold mb-3">Adoption without redesign</h3><p class="text-text-secondary">If AI saves time but people just receive more tasks, the organisation gets busier, not better.</p></div>
+        <div class="story-card p-7 reveal"><h3 class="text-xl font-semibold mb-3">Training is the bottleneck</h3><p class="text-text-secondary">Only 12% receive sufficient AI training, so many firms are using powerful tools with shallow capability.</p></div>
+        <div class="story-card p-7 reveal"><h3 class="text-xl font-semibold mb-3">Strategy beats tools</h3><p class="text-text-secondary">The winners are not the firms with the most tools, but the firms that redesign jobs, workflows and decisions.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-9" data-slide="9">
+    <div class="gradient-mesh"><div class="blob" style="width:430px;height:430px;top:-110px;left:-80px;background:var(--color-accent-3);opacity:.11"></div><div class="blob" style="width:260px;height:260px;bottom:-60px;right:-40px;background:var(--color-accent-2);opacity:.08"></div></div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <p class="mini-label reveal">Story 3</p>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold reveal">Finally, meet HR</h2>
+      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span>HR story image placeholder</span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">HR sits in the middle of all this tension: talent mobility, AI anxiety, reskilling pressure, policy changes, and leaders asking for productivity. That is why this is HR's moment.</p></div>
+    </div>
+  </div>
+
+  <div class="slide slide-10" data-slide="10">
+    <div class="gradient-mesh"><div class="blob" style="width:360px;height:360px;top:-90px;right:-70px;background:var(--color-accent-1);opacity:.09"></div><div class="blob" style="width:260px;height:260px;bottom:-50px;left:-40px;background:var(--color-accent-2);opacity:.07"></div></div>
+    <div class="content">
+      <p class="mini-label reveal">The HR perspective</p>
+      <h2 class="font-display text-[clamp(2rem,4.2vw,3rem)] font-bold mb-8 reveal">HR is not the audience of AI. HR is the architect of AI at work.</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div class="story-card p-8 reveal">
+          <h3 class="text-2xl font-semibold mb-4">What HR must now do</h3>
+          <ul class="space-y-4 text-lg text-text-secondary">
+            <li>Redesign jobs so humans and AI each do the right work.</li>
+            <li>Build AI fluency, not just one-off tool demos.</li>
+            <li>Protect fairness, privacy and human oversight in decisions.</li>
+            <li>Rebuild the employee value proposition around skills and growth.</li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+          <div class="story-card p-6 reveal"><div class="text-4xl font-extrabold stat-glow" data-count="93">93</div><div class="mt-2 text-base font-semibold">% of employees open to better roles</div></div>
+          <div class="story-card p-6 reveal"><div class="text-4xl font-extrabold stat-glow" data-count="23">23</div><div class="mt-2 text-base font-semibold">% of employers cite retention as a top obstacle</div></div>
+          <div class="story-card p-6 reveal"><div class="text-4xl font-extrabold stat-glow" data-count="35">35.6</div><div class="mt-2 text-base font-semibold">% skills-related underemployment</div></div>
+          <div class="story-card p-6 reveal"><div class="text-4xl font-extrabold stat-glow" data-count="30000">30,000</div><div class="mt-2 text-base font-semibold">AI professionals targeted by 2030</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-11" data-slide="11">
+    <div class="gradient-mesh"><div class="blob" style="width:340px;height:340px;top:-70px;left:-60px;background:var(--color-accent-2);opacity:.08"></div><div class="blob" style="width:230px;height:230px;bottom:-40px;right:-30px;background:var(--color-accent-1);opacity:.07"></div></div>
+    <div class="content">
+      <p class="mini-label reveal">Update their understanding</p>
+      <h2 class="font-display text-[clamp(2rem,4.4vw,3rem)] font-bold mb-8 reveal">Five messages to leave in the room</h2>
+      <div class="grid grid-cols-1 gap-4">
+        <div class="story-card p-6 reveal"><span class="font-semibold text-accent-2">1.</span> AI is no longer future talk. It is already embedded in Malaysian work.</div>
+        <div class="story-card p-6 reveal"><span class="font-semibold text-accent-2">2.</span> The biggest risk is not replacement alone. It is being unprepared for redesigned work.</div>
+        <div class="story-card p-6 reveal"><span class="font-semibold text-accent-2">3.</span> Productivity gains can disappear if work is not redesigned and people are not trained.</div>
+        <div class="story-card p-6 reveal"><span class="font-semibold text-accent-2">4.</span> HR has become central to capability building, trust and governance.</div>
+        <div class="story-card p-6 reveal"><span class="font-semibold text-accent-2">5.</span> The organisations that thrive will combine AI fluency with human judgment, ethics and leadership.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-12" data-slide="12">
+    <div class="gradient-mesh"><div class="blob" style="width:500px;height:500px;top:-100px;right:-100px;background:var(--color-accent-1);opacity:.15"></div><div class="blob" style="width:300px;height:300px;bottom:-80px;left:-60px;background:var(--color-accent-2);opacity:.12"></div><div class="blob" style="width:200px;height:200px;top:40%;left:15%;background:var(--color-accent-3);opacity:.10"></div></div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <div class="hero-image-placeholder reveal"><span>Closing image placeholder</span></div>
+      <h2 class="font-display text-[clamp(2.3rem,5vw,4.3rem)] font-bold bg-linear-to-br from-accent-1 via-accent-2 to-accent-1 bg-clip-text text-transparent mb-5 reveal">This keynote is only the first chapter</h2>
+      <div class="grid grid-cols-3 gap-6 mt-8">
+        <div class="story-card p-6 reveal"><div class="mini-label mb-3">Later today</div><div class="text-xl font-semibold mb-2">2 hours practical AI uses</div><p class="text-text-secondary">Real prompts, real workflows and real HR use cases.</p></div>
+        <div class="story-card p-6 reveal"><div class="mini-label mb-3">Tomorrow</div><div class="text-xl font-semibold mb-2">2 hours AI governance</div><p class="text-text-secondary">Risk, fairness, human oversight and responsible adoption.</p></div>
+        <div class="story-card p-6 reveal"><div class="mini-label mb-3">The invitation</div><div class="text-xl font-semibold mb-2">Do not stop at awareness</div><p class="text-text-secondary">Come back for the practical skills and the governance discipline.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="nav-controls">
+  <button class="nav-btn" onclick="changeSlide(-1)" aria-label="Previous slide">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)" aria-label="Next slide">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 12</span>
+</div>
+<script>
+let current = 1;
+const total = document.querySelectorAll('.slide').length;
+const dotsContainer = document.getElementById('dots');
+const counter = document.getElementById('counter');
+for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+function goToSlide(n) { const prev = document.querySelector('.slide.active'); const next = document.querySelector(`.slide[data-slide="${n}"]`); if (prev) prev.classList.remove('active'); if (next) { next.classList.add('active'); animateSlide(next); } current = n; updateNav(); }
+function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current)); counter.textContent = current + ' / ' + total; }
+document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+let touchStartX = 0; document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }); document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+function animateSlide(slide) {
+  slide.querySelectorAll('.reveal').forEach((el, i) => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.offsetHeight; const delay = i * 0.08; el.style.transition = `opacity 0.35s ease ${delay}s, transform 0.35s ease ${delay}s`; el.style.opacity = '1'; el.style.transform = 'translateY(0px)'; });
+  animateSlideEffects(slide);
+}
+function animateSlideEffects(slide) {
+  slide.querySelectorAll('[data-count]:not(.counted)').forEach(el => { el.classList.add('counted'); const target = parseFloat(el.dataset.count); const suffix = el.dataset.suffix || ''; const prefix = el.dataset.prefix || ''; let cur = 0; const step = target / 40; const timer = setInterval(() => { cur += step; if (cur >= target) { cur = target; clearInterval(timer); } const value = target % 1 !== 0 ? cur.toFixed(1) : Math.round(cur).toLocaleString(); el.textContent = prefix + value + suffix; }, 30); });
+  slide.querySelectorAll('.bar-fill:not(.fill-init)').forEach((bar, i) => { bar.classList.add('fill-init'); bar.style.width = '0%'; bar.style.transition = `width 0.5s ease ${i * 0.08}s`; bar.offsetHeight; bar.style.width = bar.dataset.width + '%'; });
+}
+document.addEventListener('mousemove', (e) => { const spotlight = document.querySelector('.mouse-spotlight'); if (spotlight) spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(226,61,79,0.08), transparent 40%)`; });
+window.initParticles = function(canvas, options) { if (!canvas) return; const ctx = canvas.getContext('2d'); canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; const interactive = options.interactive !== false; const count = options.count || (interactive ? 55 : 18); let mx = -1000, my = -1000; const particles = Array.from({ length: count }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, size: Math.random() * 2.5 + 0.8, alpha: Math.random() * 0.35 + 0.1 })); if (interactive) { canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; }); } (function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { if (interactive) { const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx * dx + dy * dy) || 1; if (dist < 120) { const force = (120 - dist) / 120 * 2; p.vx += (dx / dist) * force * 0.1; p.vy += (dy / dist) * force * 0.1; } } p.vx *= 0.98; p.vy *= 0.98; p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(226,61,79,${p.alpha})`; ctx.fill(); }); requestAnimationFrame(animate); })(); };
+document.querySelectorAll('.particle-canvas').forEach(c => window.initParticles(c, { interactive: true, count: 55 }));
+document.querySelectorAll('.particle-canvas-ambient').forEach(c => window.initParticles(c, { interactive: false, count: 18 }));
+try { animateSlide(document.querySelector('.slide.active')); } catch(e) { console.warn(e); }
+</script>
+</body>
+</html>
