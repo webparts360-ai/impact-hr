@@ -60,7 +60,7 @@
     .story-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); backdrop-filter: blur(12px); border-radius: 24px; }
     .mini-label { letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.75rem; color: #9fb0c7; }
 
-    .hero-image-placeholder { width: min(38vw, 320px); aspect-ratio: 16 / 10; margin: 0 auto 1rem; border-radius: 28px; border: 2px dashed rgba(255,255,255,0.28); background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)); display:flex; align-items:center; justify-content:center; padding: 1rem; box-shadow: 0 18px 50px rgba(0,0,0,0.25); }
+    .hero-image-placeholder { width: min(38vw, 520px); aspect-ratio: 16 / 10; margin: 0 auto 1rem; border-radius: 28px; border: 2px dashed rgba(255,255,255,0.28); background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)); display:flex; align-items:center; justify-content:center; padding: 1rem; box-shadow: 0 18px 50px rgba(0,0,0,0.25); }
     .hero-image-placeholder span { font-size: clamp(0.95rem, 1.4vw, 1.15rem); letter-spacing: 0.14em; text-transform: uppercase; color: #ffd7dc; text-align:center; line-height:1.5; }
     .story-image-placeholder { width: 100%; aspect-ratio: 16 / 10; border-radius: 24px; border: 2px dashed rgba(255,255,255,0.22); background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03)); display:flex; align-items:center; justify-content:center; padding: 1.25rem; min-height: 220px; }
     .story-image-placeholder span { font-size: clamp(0.9rem, 1.2vw, 1.05rem); letter-spacing: 0.12em; text-transform: uppercase; color: #ffd7dc; text-align:center; }
@@ -110,7 +110,7 @@
     <div class="content text-center">
       <p class="mini-label reveal">Story 1</p>
       <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold reveal">Meet Aina</h2>
-      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span>Individual story image placeholder</span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">She is capable, diligent and experienced. But she wakes up one morning and realises the market no longer pays only for effort. It pays for judgment, speed and AI fluency.</p></div>
+      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span><img src="images/aina.png"></span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">She is capable, diligent and experienced. But she wakes up one morning and realises the market no longer pays only for effort. It pays for judgment, speed and AI fluency.</p></div>
     </div>
   </div>
 
@@ -155,7 +155,7 @@
     <div class="content text-center">
       <p class="mini-label reveal">Story 2</p>
       <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold reveal">Now meet the company</h2>
-      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span>Company story image placeholder</span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">The CEO says, “We have bought the AI tools.” But the teams are still overloaded, managers are confused, and the hoped-for gains remain trapped inside the workflow.</p></div>
+      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span><img src="images/bizai.png"></span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">The CEO says, “We have bought the AI tools.” But the teams are still overloaded, managers are confused, and the hoped-for gains remain trapped inside the workflow.</p></div>
     </div>
   </div>
 
@@ -204,7 +204,7 @@
     <div class="content text-center">
       <p class="mini-label reveal">Story 3</p>
       <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold reveal">Finally, meet HR</h2>
-      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span>HR story image placeholder</span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">HR sits in the middle of all this tension: talent mobility, AI anxiety, reskilling pressure, policy changes, and leaders asking for productivity. That is why this is HR's moment.</p></div>
+      <div class="grid grid-cols-2 gap-8 items-center mt-6"><div class="story-image-placeholder reveal"><span><img src="images/hrlead.png"></span></div><p class="text-2xl max-w-3xl text-left text-text-secondary reveal">HR sits in the middle of all this tension: talent mobility, AI anxiety, reskilling pressure, policy changes, and leaders asking for productivity. That is why this is HR's moment.</p></div>
     </div>
   </div>
 
@@ -252,7 +252,7 @@
     <div class="gradient-mesh"><div class="blob" style="width:500px;height:500px;top:-100px;right:-100px;background:var(--color-accent-1);opacity:.15"></div><div class="blob" style="width:300px;height:300px;bottom:-80px;left:-60px;background:var(--color-accent-2);opacity:.12"></div><div class="blob" style="width:200px;height:200px;top:40%;left:15%;background:var(--color-accent-3);opacity:.10"></div></div>
     <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
     <div class="content text-center">
-      <div class="hero-image-placeholder reveal"><span>Closing image placeholder</span></div>
+      <div class="hero-image-placeholder reveal"><span><img src="ConferenceLogo.png"></span></div>
       <h2 class="font-display text-[clamp(2.3rem,5vw,4.3rem)] font-bold bg-linear-to-br from-accent-1 via-accent-2 to-accent-1 bg-clip-text text-transparent mb-5 reveal">This keynote is only the first chapter</h2>
       <div class="grid grid-cols-3 gap-6 mt-8">
         <div class="story-card p-6 reveal"><div class="mini-label mb-3">Later today</div><div class="text-xl font-semibold mb-2">2 hours practical AI uses</div><p class="text-text-secondary">Real prompts, real workflows and real HR use cases.</p></div>
