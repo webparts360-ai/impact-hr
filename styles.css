@@ -182,6 +182,26 @@ a { color: inherit; text-decoration: none; }
   color: rgba(255,255,255,0.88);
 }
 
+.card-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #FFF8E1;
+  border: 1px solid #FFE082;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6D4C00;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card-chip:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
 .time-chip {
   display: inline-flex;
   align-items: center;
